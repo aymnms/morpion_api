@@ -1,6 +1,6 @@
 from Status import Status
 
-class User:
+class Player:
     def __init__(self, sid, uuid) -> None:
         self.sid = sid
         self.uuid = uuid

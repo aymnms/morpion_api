@@ -1,16 +1,10 @@
-from User import User
-from Status import Status
 import math
 
 class Game:
-    # def __init__(self, user1: User, user2: User) -> None:
-    def __init__(self, user1: str, user2: str) -> None:
-        self.players = [user1, user2]
-        self.morpion = [
-            ["", "", ""],
-            ["", "", ""],
-            ["", "", ""]
-        ]
+    # def __init__(self, player1: Player, player2: Player) -> None:
+    def __init__(self, player1: str, player2: str) -> None:
+        self.players = [player1, player2]
+        self.morpion = self.reset_morpion()
         self.turn = 0
     
     def display_morpion(self):
@@ -51,6 +45,13 @@ class Game:
             return True
         return False
 
+    def reset_morpion(self):
+        self.morpion = [
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""]
+        ]
+
     # def send_update_players(self, sio):
     def send_update_players(self):
         # sio.emit('game', {'morpion': str(self.morpion), 'turn': str(self.turn)})
@@ -58,17 +59,18 @@ class Game:
         self.display_morpion()
     
 
-# # test de logique - à implémenter en event
-# game = Game('joueur1', 'joueur2')
-# game.display_morpion()
+# test de logique - à implémenter en event
+game = Game('joueur1', 'joueur2')
+game.display_morpion()
 
 
-# while True:
-#     numpad = int(input(game.players[game.turn] + " ?"))
-#     game.set_action(numpad)
-#     game.send_update_players()
-#     if game.is_victory():
-#         print("Victoire de: ", game.players[game.turn])
-#         break
-#     game.switch_turn()
+while True:
+    numpad = int(input(game.players[game.turn] + " ?"))
+    game.set_action(numpad)
+    game.send_update_players()
+    if game.is_victory():
+        print("Victoire de: ", game.players[game.turn])
+        # changer statue en ENDGAME
+        break
+    game.switch_turn()
     
